@@ -78,6 +78,11 @@
 		&_visible {
 			transform: rotateY(360deg);
 		}
+
+		& footer button {
+			display: none;
+		}
+
 	}
 	&__resultInfo {
 		@include setBox(auto, auto, 0 , 0 16px );

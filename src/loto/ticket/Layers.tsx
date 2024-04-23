@@ -4,7 +4,15 @@ import FC, { IGameLayer, IResultLayer } from "../../types"
 /**
  * компонент для построения игрового слоя с полем с цифрами для выбора
  * 
- * @param param0 
+ * @param data - изначальные правила для игры которые передаются в билет, используются для построения полей. Сколько правил, столько и полей будет строить.
+ * @param status - состояние в котором находиться игра ( выбор чисел, обработка результата или вывод результата )
+ * @param playerFields - состояние с выбранными полями игроком
+ * @param disableButton - состояние для кнопок, 
+ * @param ticketNumber - номер билета
+ * @param handleClickRun - обработчик запуска игры
+ * @param handleClickAtCheap - обработчик выбора числе
+ * @param handleClickRundomNumbers - обработчик для кнопки случайных чисел
+ *  
  * @returns 
  */
 export const GameLayer: FC<IGameLayer> = ({
@@ -80,13 +88,21 @@ export const GameLayer: FC<IGameLayer> = ({
 
 /**
  * Компонент для построения слоя с результатами игры или сообщением о том, что произошла ошибка.
- * @param param0 
+ * 
+ * @param state - состояние о том есть или нет выигрыш
+ * @param status - состояние в котором находиться игра ( выбор чисел, обработка результата или вывод результата )
+ * @param error - состояние ошибки, если свойтво объекта ошибки state === true, то вместо состояния state используются правила для построения оталкивающиеся от состояния error
+ * @param ticketNumber - номер билета
+ * @param playerFields - состояние с выбранными полями игроком
+ * @param randomFields - состояние которое содержит случайно сгенерированые числа для игры, с которыми сравниваются числа из состояния playerFields
+ * @param handleClickOneMoreTime - дополнительный параметр - обработчик кнопки, что бы запускать игру по новой, кнопка с этим обработчиком скрыта.
  * @returns 
  */
 export const ResultLayer: FC<IResultLayer> = ({
 	state,
 	error, status,
 	ticketNumber = 1,
+	playerFields, randomFields,
 	handleClickOneMoreTime,
 }) => {
 
@@ -125,10 +141,10 @@ export const ResultLayer: FC<IResultLayer> = ({
 			}
 			</div>
 			<Footer>
-				{/* <Button
+				<Button
 					title = "Сыграть ещё"
-					handleClick={ handleClickOneMoreTime }
-				/> */}
+					handleClick={ handleClickOneMoreTime as React.FormEventHandler }
+				/>
 			</Footer>
 		</div>
 	)

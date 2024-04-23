@@ -1,6 +1,5 @@
 import { useMethods } from "../hooks/useMethods";
 import { GameLayer, ResultLayer } from "./Layers"
-
 import FC, { ITicket } from "../../types";
 
 import "../../styles/ticket.scss"
@@ -16,13 +15,11 @@ import "../../styles/ticket.scss"
  */
 export const Ticket: FC<ITicket> = ( {	data, ticketNumber,	} ) => {	
 	const {
-		error,
-		state, status, disableButton, playerFields,
+		error, state, status, disableButton, playerFields, randomFields,
 		handleClickAtCheap, handleClickRun, handleClickRundomNumbers, handleClickOneMoreTime
 	} = useMethods( data )
 
 	return (
-
 		<div
 			className = "ticket__container"
 		>
@@ -38,10 +35,12 @@ export const Ticket: FC<ITicket> = ( {	data, ticketNumber,	} ) => {
 			/>
 			<ResultLayer
 				error = { error }
+				state = { state }
+				status = { status }
+				playerFields ={ playerFields }
+				randomFields = { randomFields }
 				ticketNumber = { ticketNumber }
 				handleClickOneMoreTime = { handleClickOneMoreTime }
-				status = { status }
-				state = { state }
 			/>
 		</div>
 	)

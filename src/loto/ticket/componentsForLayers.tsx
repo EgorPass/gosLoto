@@ -1,11 +1,11 @@
 import FC, { IButton, IHeader, IFooter, IGameField, ICheap, IRundomNumbers, IResultInfo } from "../../types"
 
-
 /**
  * компонент заголовка билета "Билет №".
  * компонент использутся в GameLayer & ResultLayer
  * 
- * @param param0 
+ * @param ticketNumber - номер билета
+ * @param children - ReactNode, используем для кнопки генерации случайных чисел
  * @returns 
  */
 export const Header: FC<IHeader> = ({ticketNumber, children }) => {
@@ -21,13 +21,12 @@ export const Header: FC<IHeader> = ({ticketNumber, children }) => {
 			{ children }
 		</header>
 	)
-} 
-
+}
 /**
  * компонент подвальной части GameLayer & ResultLayer.
  * компонент формирует grid макет и содержит кнопку для запуска игры в GameLayer
  * 
- * @param param0 
+ * @param children - ReactNode  используем для кнопки
  * @returns 
  */
 export const Footer: FC<IFooter> = ({ children }) => {
@@ -39,10 +38,13 @@ export const Footer: FC<IFooter> = ({ children }) => {
 		</footer>
 	)
 } 
-
 /**
  * Компонент фишки с числом для выбора на игровом поле
- * @param param0 
+ * @param id - id самой фишки
+ * @param fieldId - id поля родителя фишки
+ * @param status - состояние для фишки, нажата или не нажата
+ * @param handleClick - обрабтчик при нажатии на фишку
+ *  
  * @returns 
  */
 export const Cheap: FC<ICheap> = ({ id, fieldId, status = false,
@@ -59,7 +61,6 @@ export const Cheap: FC<ICheap> = ({ id, fieldId, status = false,
 		</div>
 	)
 }
-
 /**
  * Копмонент для компоновки фищек кажддого игрового поля.
  * В качестве параметра принимает массив с Cheap компонентами.
@@ -93,33 +94,35 @@ export const GameField: FC<IGameField> = ({
 		</div>
 	)
 } 
-
 /**
  * тут мы результат объявляем
- * @param - head- заголовок с информацией проиграли, выиграли или ошибка
- * @param - paragraph - соотвтетсвтенно текст к заголовку
+ * @param head- заголовок с информацией проиграли, выиграли или ошибка
+ * @param paragraph - соотвтетсвтенно текст к заголовку
  * @returns 
  */
-export const ResultInfo: FC<IResultInfo> = ({ head, paragraph }) =>  (
-	<>
-		<h4>
-			{ head }
-		</h4>
-		<p>
-			{ paragraph}
-		</p>
-	</>
-)
-
+export const ResultInfo: FC<IResultInfo> = ({ head, paragraph, playerFields = [], randomFields = [] }) => {
+	return (
+		<>
+			<h4>
+				{ head }
+			</h4>
+			<p>
+				{ paragraph}
+			</p>
+		</>
+	)
+}
 /**
  * компонент кнопики для запуска игры.
- * @param param0 
+ * @param title - название кнопки
+ * @param disabled - определение активна кнопка или нет
+ * @param handleClick - обработчик для кнопки
+ * 
  * @returns 
  */
 export const Button: FC<IButton> = ({
 	title, handleClick = () => { }, disabled = false
 }) => {
-
 	return (
 		<button
 			className={`ticket__button ticket__button_${!disabled ? "active": "disabled"}`}
@@ -130,10 +133,9 @@ export const Button: FC<IButton> = ({
 		</button>
 	)
 }
-
 /**
  * Компонент кнопки для рандомного выбора чисел на поле
- * @param param0 
+ * @param handleClick - обработчик для нажатия
  * @returns 
  */
 export const ButtonRundomNumbers: FC<IRundomNumbers> = ({ handleClick = (e) => {} }) => {
