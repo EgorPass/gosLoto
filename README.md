@@ -1,46 +1,31 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
+Созданно с помощью create-react-app.
 
-## Available Scripts
+### запуск - npm i && npm run start
 
-In the project directory, you can run:
+### задания со звёздочкой по 
+#### 4* Адаптивная mobile-first вёрстка, условно приближенная к макету. (https://www.figma.com/file/VDraSBJhGzDKP33eS4IBbp6Z/Finch_test).
+- Сделанно по максимому.
 
-### `npm start`
+#### 5* Реализовать генерацию случайно выбранных полей в билете (в соответствие с правилами лотереи) по нажатию на значок волшебной палочки.
+- формирует случайные числа для полей согласно правилам
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### 6* Реализовать логику отправки выбранных чисел на сервер по любому url'у (предлагаем использовать фейковый url, чтобы не иметь дела с CORS). Отправка должна происходить после нажатия на кнопку "Показать результат". В данных отправки должен быть объект
+{
+  selectedNumber:
+    { firstField: [ *first field numbers* ], secondField: [ *second field numbers* ] },
+    isTicketWon: *Boolean(true||false)*
+  }
+}
+данный объект выводиться в консоле, так же выводиться массивы isWon & isCheck - которые показывют, какое из правил выиграло, и сколько совпадений по каждому полю.
+ 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### Нужно предусмотреть ситуацию, что в ответ придет код ответ не 200 OK, а любой другой. В таком случае требуется отправлять запрос еще два раза с интервалом 2 секунды. Если ответ 200 OK так и не пришел, то выдать какое-либо уведомление об ошибке.
+уведомление об ошибке происхдит в самом билете, на поле вывода результатов.
+На данной ветке реализация с одной ошибкой запроса и через 2 секунды эмуляция успешного запроса.
+Этим можно управлять в файле useMethods.ts по адресу src/loto/hooks/useMethods.ts
+если в обработчике handleClickRun на 101 и 102 строке комменты поменять местами, то при на жатии на кнопку показать результаты, не будет ошибки
+если в обработчике handleClickRun 202 строку поставить в коммент, то результат будет ошибка.
+Будет сдлан запрос и отклонён с ошибкой и еще два запроса с интервалом 2 секунды, но то же с ошибкой.
+ 
